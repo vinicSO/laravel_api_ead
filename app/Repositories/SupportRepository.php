@@ -38,6 +38,10 @@ class SupportRepository {
         return User::first();
     }
 
+    public function getSupport (string $identifySupport) {
+        return $this->entity->findOrFail($identifySupport);
+    }
+
     public function createNewSupport (array $data): Support {
         $new_support = $this->getUserAuth()->supports()->create([
             'lesson_id' => $data['lesson'],
@@ -46,6 +50,18 @@ class SupportRepository {
         ]);
 
         return $new_support;
+    }
+
+    public function createReplyToSupport(string $supportId, array $data) {
+
+        $user = $this->getUserAuth();
+
+        $reply = $this->getSupport($supportId)->replies()->create([
+            'description' => $data['description'],
+            'user_id' => $user->id
+        ]);
+
+        return $reply;
     }
 
 }
