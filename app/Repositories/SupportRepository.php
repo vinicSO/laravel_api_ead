@@ -15,21 +15,34 @@ class SupportRepository {
         $this->entity = $model;
     }
 
+    public function getMySupports (array $filters = []) {
+
+        $filters['user'] = true;
+
+        return $this->getSupports($filters);
+    }
+
     public function getSupports (array $filters = []) {
-        return $this->getUserAuth()->supports()->where(function ($query) use($filters) {
-            if(isset($filters['lesson'])) {
+        return $this->entity->where(function ($query) use($filters) {
+            if (isset($filters['lesson'])) {
                 $query->where('lesson_id', $filters['lesson']);
             }
 
-            if(isset($filters['status'])) {
+            if (isset($filters['status'])) {
                 $query->where('status', $filters['status']);
             }
 
-            if(isset($filters['filter'])) {
+            if (isset($filters['filter'])) {
 
                 $filter = $filters['filter'];
 
                 $query->where('description', 'LIKE', "%{$filter}%");
+            }
+
+            if (isset($filters['user'])) {
+                $user = $this->getUserAuth(); 
+
+                $query->where('user_id', $user->id);
             }
         })->orderBy('updated_at')->get();
     }

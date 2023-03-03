@@ -7,6 +7,6 @@ use App\Models\User;
 trait TraitRepository {
 
     private function getUserAuth (): User {
-        return User::fisrt();
+        return User::first();
     }
 }
