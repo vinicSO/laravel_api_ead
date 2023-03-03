@@ -19,6 +19,9 @@ class Module extends Model
     ];
 
     public function course () {
-        return $this->belongsTo(Course::class);
+        return [
+            'id' => $this->id,
+            'name' => ucwords(strtolower($this->name))
+        ]
     }
 }
