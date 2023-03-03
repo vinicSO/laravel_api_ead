@@ -17,7 +17,9 @@ class SupportResource extends JsonResource
         return [
             'status' => $this->status,
             'status_label' => $this->statusOptions[$this->status],
-            'description' => $this->description
+            'description' => $this->description,
+            'user' => new UserResource($this->user),
+            'lesson' => new LessonResource($this->lesson)
         ];
     }
 }
