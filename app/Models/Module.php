@@ -22,6 +22,6 @@ class Module extends Model
         return [
             'id' => $this->id,
             'name' => ucwords(strtolower($this->name))
-        ]
+        ];
     }
 }
