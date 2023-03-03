@@ -3,9 +3,11 @@
 namespace App\Repositories;
 
 use App\Models\Support;
-use App\Models\User;
+use App\Repositories\Traits\TraitRepository;
 
 class SupportRepository {
+
+    use TraitRepository;
 
     protected $entity;
 
@@ -32,13 +34,8 @@ class SupportRepository {
         })->orderBy('updated_at')->get();
     }
 
-    public function getUserAuth (): User {
-        // return auth()->user();
 
-        return User::first();
-    }
-
-    public function getSupport (string $identifySupport) {
+    private function getSupport (string $identifySupport) {
         return $this->entity->findOrFail($identifySupport);
     }
 
