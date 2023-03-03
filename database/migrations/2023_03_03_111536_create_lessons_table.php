@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('lessons', function (Blueprint $table) {
-            $table->uuid('id')->primary;
+            $table->uuid('id')->primary();
             $table->uuid('module_id')->nullable(false);
             $table->string('name')->unique();
             $table->string('url')->unique();

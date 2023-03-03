@@ -19,4 +19,8 @@ class Lesson extends Model
         'description',
         'video'
     ];
+
+    public function supports () {
+        return $this->hasMany(Support::class);
+    }
 }
