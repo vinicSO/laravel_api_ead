@@ -11,7 +11,10 @@ Use App\Models\Traits\UuidTrait;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, UuidTrait;
+
+    public $incrementing = false;
+    protected $keyType = 'uuid';
 
     /**
      * The attributes that are mass assignable.
