@@ -20,7 +20,9 @@ class ReplySupport extends Model
         'user_id'
     ];
 
-    protected $table = 'reply_support';  
+    protected $table = 'reply_support';
+
+    protected $touches = ['support'];
 
     public function support () {
         return $this->belongsTo(Support::class);
