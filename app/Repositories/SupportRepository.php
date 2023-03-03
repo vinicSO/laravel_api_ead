@@ -13,7 +13,7 @@ class SupportRepository {
         $this->entity = $model;
     }
 
-    public function getSupports(array $filters = []) {
+    public function getSupports (array $filters = []) {
         return $this->getUserAuth()->supports()->where(function ($query) use($filters) {
             if(isset($filters['lesson'])) {
                 $query->where('lesson_id', $filters['lesson']);
@@ -27,15 +27,25 @@ class SupportRepository {
 
                 $filter = $filters['filter'];
 
-                $query->where('description', 'LIKE', "${$filter}%");
+                $query->where('description', 'LIKE', "%{$filter}%");
             }
         })->get();
     }
 
-    public function getUserAuth(): User {
+    public function getUserAuth (): User {
         // return auth()->user();
 
         return User::first();
+    }
+
+    public function createNewSupport (array $data): Support {
+        $new_support = $this->getUserAuth()->supports()->create([
+            'lesson_id' => $data['lesson'],
+            'description' => $data['description'],
+            'status' => $data['status']
+        ]);
+
+        return $new_support;
     }
 
 }
