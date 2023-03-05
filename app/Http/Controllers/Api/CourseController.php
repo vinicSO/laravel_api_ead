@@ -20,7 +20,7 @@ class CourseController extends Controller
 
         $courses = $this->repository->getAllCourses();
 
-        return CourseResource($courses);
+        return CourseResource::collection($courses);
     }
 
     public function find (Request $request) {
