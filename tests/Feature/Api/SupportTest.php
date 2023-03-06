@@ -13,7 +13,7 @@ class SupportTest extends TestCase
 
     use UtilsTrait;
 
-    public function test_get_my_supports_unauthorized ()
+    public function test_get_fail_my_supports_unauthorized ()
     {
 
         $response = $this->getJson('/supports/my', $this->defaultUnauthorizedHeaders());
@@ -41,7 +41,7 @@ class SupportTest extends TestCase
             ->assertJsonCount(50, 'data');
     }
 
-    public function test_get_supports_unauthenticated ()
+    public function test_get_fail_supports_unauthenticated ()
     {
 
         $response = $this->getJson('/supports', $this->defaultUnauthorizedHeaders());
@@ -76,5 +76,35 @@ class SupportTest extends TestCase
 
         $response->assertStatus(200)
             ->assertJsonCount(10, 'data');
+    }
+
+    public function test_fail_create_support_unauthenticated ()
+    {
+
+        $response = $this->postJson('/supports', [], $this->defaultUnauthorizedHeaders());
+
+        $response->assertStatus(401);
+    }
+
+    public function test_fail_create_support_error_validations ()
+    {
+
+        $response = $this->postJson('/supports', [], $this->defaultAuthorizedHeaders());
+
+        $response->assertStatus(422);
+    }
+
+    public function test_create_support ()
+    {
+
+        $lesson = Lesson::factory()->create();
+
+        $response = $this->postJson('/supports', [
+            'lesson' => $lesson->id,
+            'status' => 'A',
+            'description' => 'Lorem ipsu'
+        ], $this->defaultAuthorizedHeaders());
+
+        $response->assertStatus(201);
     }
 }
