@@ -42,7 +42,7 @@ class ModuleTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_create_modules_to_course ()
+    public function test_get_all_modules_of_course_total ()
     {
 
         $course = Course::factory()->create();
