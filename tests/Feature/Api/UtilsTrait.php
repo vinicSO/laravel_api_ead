@@ -15,12 +15,20 @@ trait UtilsTrait
         return $token;
     }
 
-    public function defaultHeaders () {
+    public function defaultAuthorizedHeaders () {
 
         $token = $this->createTokenUser();
 
         return [
-            'Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token,
+            'Accept' => 'application/json'
+        ];
+    }
+
+    public function defaultUnauthorizedHeaders () {
+
+        return [
+            'Accept' => 'application/json'
         ];
     }
 }

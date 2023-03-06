@@ -23,7 +23,7 @@ class CourseTest extends TestCase
     public function test_get_all_courses()
     {
 
-        $response = $this->getJson('/courses', $this->defaultHeaders());
+        $response = $this->getJson('/courses', $this->defaultAuthorizedHeaders());
 
         $response->assertStatus(200);
     }
@@ -33,7 +33,7 @@ class CourseTest extends TestCase
 
         Course::factory()->count(10)->create();
 
-        $response = $this->getJson('/courses', $this->defaultHeaders());
+        $response = $this->getJson('/courses', $this->defaultAuthorizedHeaders());
 
         $response->assertStatus(200)
             ->assertJsonCount(10, 'data');
@@ -52,7 +52,7 @@ class CourseTest extends TestCase
     public function test_fail_get_single_course_not_found()
     {
 
-        $response = $this->getJson('/courses/fake_id', $this->defaultHeaders());
+        $response = $this->getJson('/courses/fake_id', $this->defaultAuthorizedHeaders());
 
         $response->assertStatus(404);
     }
@@ -62,7 +62,7 @@ class CourseTest extends TestCase
 
         $course = Course::factory()->create();
 
-        $response = $this->getJson('/courses/' . $course->id, $this->defaultHeaders());
+        $response = $this->getJson('/courses/' . $course->id, $this->defaultAuthorizedHeaders());
 
         $response->assertStatus(200);
     }
