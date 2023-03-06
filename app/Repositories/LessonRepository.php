@@ -16,7 +16,9 @@ class LessonRepository {
     }
 
     public function getLessonsByModuleId (string $identifyModule) {
-        return $this->entity->where('module_id', $identifyModule)->get();
+        return $this->entity
+            ->with('supports.replies')
+            ->where('module_id', $identifyModule)->get();
     }
 
     public function getLesson (string $identify) {

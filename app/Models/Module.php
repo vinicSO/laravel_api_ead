@@ -24,4 +24,8 @@ class Module extends Model
             'name' => ucwords(strtolower($this->name))
         ];
     }
+
+    public function lessons () {
+        return $this->hasMany(Lesson::class);
+    }
 }
