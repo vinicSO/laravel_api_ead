@@ -46,7 +46,7 @@ class SupportRepository {
             }
         })
             ->with('replies')
-            ->orderBy('updated_at')->get();
+            ->orderBy('updated_at')->paginate(5);
     }
 
 
